@@ -40,7 +40,9 @@ public class EntityMetadata {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    private boolean archived;
+    // boolean had null value issues when creating user
+    // not sure if Boolean is the right fix here.
+    private Boolean archived;
     private String version;
 
     @CreatedBy
