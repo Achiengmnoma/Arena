@@ -35,8 +35,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Service
-@RequiredArgsConstructor
+1
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
