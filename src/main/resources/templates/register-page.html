@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Arena | Real-Time Multiplayer Game Server | Sign Up</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<div id="toast" class="daisy-toast daisy-toast-top daisy-toast-center"
+     th:if="${error != null}">
+    <div class="daisy-alert daisy-alert-error">
+        <span th:text="${error}"></span>
+    </div>
+</div>
+
+<div class="grid content-center place-content-center h-screen gap-4">
+    <h1 class="text-3xl text-left">Sign Up</h1>
+    <form class="flex flex-col w-max gap-4"
+          th:action="@{/register}" method="post"
+          th:object="${user}">
+        <label class="daisy-input daisy-validator">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                >
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </g>
+            </svg>
+            <input
+                    type="text"
+                    th:field="*{firstName}"
+                    required
+                    placeholder="Firstname"
+                    pattern="[A-Za-z][A-Za-z0-9\-]*"
+                    minlength="3"
+                    maxlength="30"
+                    title="Only letters, numbers or dash"
+            />
+        </label>
+        <span class="text-red-500 text-xs" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+        <label class="daisy-input daisy-validator">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                >
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </g>
+            </svg>
+            <input
+                    type="text"
+                    th:field="*{lastName}"
+                    required
+                    placeholder="Lastname"
+                    pattern="[A-Za-z][A-Za-z0-9\-]*"
+                    minlength="3"
+                    maxlength="30"
+                    title="Only letters, numbers or dash"
+            />
+        </label>
+        <span class="text-red-500 text-xs" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+        <label class="daisy-input daisy-validator">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                >
+                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </g>
+            </svg>
+            <input
+                    type="email"
+                    th:field="*{email}"
+                    required
+                    placeholder="user@mail.com"
+            />
+        </label>
+        <span class="text-red-500 text-xs" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <label class="daisy-input daisy-validator">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                >
+                    <path
+                            d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"
+                    ></path>
+                    <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                </g>
+            </svg>
+            <input
+                    type="password"
+                    id="password"
+                    th:field="*{password}"
+                    required
+                    placeholder="Password"
+                    minlength="6"
+                    pattern="^(?=.*[a-zA-Z])(?=.*\d).{6,}$"
+                    title="Password must be at least 6 characters and contain letters and numbers"
+            />
+        </label>
+        <span class="text-red-500 text-xs" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+
+        <input
+                class="daisy-btn border-none bg-gradient-to-bl from-blue-600 to-violet-600 text-white"
+                type="submit"
+                value="Sign Up"
+        >
+    </form>
+    <a th:href="@{/login}" class="daisy-link daisy-link-hover text-sm">
+        Already have an account? Sign In
+    </a>
+</div>
+
+<script>
+    // toast
+    const toast = document.querySelector('#toast');
+    if (toast) {
+        setTimeout(() => {
+            toast.style.display = 'none';
+        }, 5000);
+    }
+</script>
+</body>
+</html>

@@ -24,25 +24,24 @@ package com.kenya.jug.arena.controller;
  */
 
 import com.kenya.jug.arena.io.AuthRequest;
-import com.kenya.jug.arena.io.AuthResponse;
 import com.kenya.jug.arena.service.AppUserDetailsService;
-import com.kenya.jug.arena.service.UserService;
 import com.kenya.jug.arena.util.JwtUtil;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -50,19 +49,37 @@ public class AuthController {
     private final AppUserDetailsService appUserDetailsService;
     private final JwtUtil jwtUtil;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody AuthRequest request) {
-        authenticate(request.getEmail(), request.getPassword());
-        final UserDetails userDetails = appUserDetailsService.loadUserByUsername(request.getEmail());
-        final String jwtToken = jwtUtil.generateToken(userDetails);
+    @GetMapping("/login")
+    public String getLoginPage(Model model) {
+        var user = new AuthRequest("", "");
+        model.addAttribute("user", user);
+        return "login-page";
+    }
 
-        ResponseCookie cookie = ResponseCookie.from("jwt", jwtToken)
-                .httpOnly(true)
-                .path("/")
-                .maxAge(Duration.ofDays(1))
-                .sameSite("Strict")
-                .build();
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(new AuthResponse(request.getEmail(), jwtToken));
+    @PostMapping("/login")
+    public String login(
+            @Valid @ModelAttribute("user") AuthRequest request,
+            HttpServletResponse response,
+            Model model
+    ) {
+        try {
+            authenticate(request.getEmail(), request.getPassword());
+            final UserDetails userDetails = appUserDetailsService.loadUserByUsername(request.getEmail());
+            final String jwtToken = jwtUtil.generateToken(userDetails);
+
+            ResponseCookie cookie = ResponseCookie.from("jwt", jwtToken)
+                    .httpOnly(true)
+                    .path("/")
+                    .maxAge(Duration.ofDays(1))
+                    .sameSite("Strict")
+                    .build();
+
+            response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+            return "redirect:/dashboard";
+        } catch (AuthenticationException e) {
+            model.addAttribute("error", "Invalid username or password");
+            return "login-page";
+        }
     }
 
     private void authenticate(String email, String password) {
