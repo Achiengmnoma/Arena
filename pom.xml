@@ -171,9 +171,25 @@
 						</configuration>
 					</execution>
 
+					<!--Node dependencies-->
+					<execution>
+						<id>npm-install</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npm</executable>
+							<workingDirectory>${project.basedir}/src/main/frontend</workingDirectory>
+							<arguments>
+								<argument>ci</argument>
+							</arguments>
+						</configuration>
+					</execution>
+
 					<!--Tailwind-->
 					<execution>
-						<id>tailwind-watch</id>
+						<id>tailwind-build</id>
 						<phase>generate-resources</phase>
 						<goals>
 							<goal>exec</goal>
