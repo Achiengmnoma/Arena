@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@source "../resources/templates/**/*.html";
+@plugin "daisyui" {
+    themes: light --default, dark --preferslight;
+    root: ":root";
+    prefix: "daisy-";
+    logs: true;
+}

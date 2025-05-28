@@ -23,25 +23,51 @@ package com.kenya.jug.arena.controller;
  * SOFTWARE.
  */
 
+import com.kenya.jug.arena.exception.AlreadyExistsException;
 import com.kenya.jug.arena.io.UserRequest;
 import com.kenya.jug.arena.io.UserResponse;
 import com.kenya.jug.arena.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/register")
+    public String getRegisterPage(Model model) {
+        var user = new UserRequest("","","","");
+        model.addAttribute("user", user);
+        return "register-page";
+    }
+
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse register(@Valid @RequestBody UserRequest request) {
-        return userService.createUser(request);
+    public String register(
+            Model model,
+            @Valid @ModelAttribute("user") UserRequest request,
+            BindingResult bindingResult
+    ) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", request);
+            model.addAttribute(
+                    "error",
+                    "Registration failed. Please check highlighted fields.");
+            return "register-page";
+        }
+        try {
+            userService.createUser(request);
+            return "redirect:/login";
+        } catch (AlreadyExistsException e) {
+            model.addAttribute("error", e.getMessage());
+            return "register-page";
+        }
     }
 
     @GetMapping("/user")
