@@ -25,7 +25,7 @@ Real-Time Multiplayer Game Server (with Betting Feature)
 | BRANCH | 2 | 28 | 30 | 6.67% ⚠️ |
 | METHOD | 22 | 28 | 50 | 44.00% ⚠️ |
 | CLASS | 9 | 5 | 14 | 64.29% ⚠️ |
-| COMPLEXITY | 23 | 42 | 65 | 35.38% ⚠️ |
+| COMPLEXITY | 23 | 42 | 65 | 35.38% ⚠️ 
 
 ### 🚨 Least Tested Elements (coverage below 50%)
 - INSTRUCTION: 32.46%
