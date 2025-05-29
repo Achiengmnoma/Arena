@@ -38,7 +38,7 @@ public class LeaderboardServImpl implements LeaderboardService{
                 filter(f->
                     f.userName().equals(firstName) &&
                             f.userId().equals(userId)).findFirst().orElse(null);
-              //.collect(Collectors.toList());
+
 
 
     }
@@ -47,14 +47,14 @@ public class LeaderboardServImpl implements LeaderboardService{
         return leadersPoint.stream()
                 .filter(r ->r.rank() == rank)
                 .findFirst().orElse(null);
-                //collect(Collectors.toList()));
+
 
     }
     public LeaderboardsResponse getPoints(int points){
         return leadersPoint.stream().filter(p ->p.points() == points)
                 .findFirst()
                 .orElse(null);
-                //.collect(Collectors.toList());
+
     }
 
 

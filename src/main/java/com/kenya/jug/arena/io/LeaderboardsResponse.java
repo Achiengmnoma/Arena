@@ -32,10 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@Builder
+
 public record LeaderboardsResponse(String userId,String userName,int rank,int points) {
     public static List<LeaderboardsResponse> leadersPoint = new ArrayList<>(Arrays.asList());
 }
