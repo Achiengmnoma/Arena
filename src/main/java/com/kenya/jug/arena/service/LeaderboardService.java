@@ -24,10 +24,11 @@ package com.kenya.jug.arena.service;
  */
 
 import com.kenya.jug.arena.io.LeaderboardsResponse;
-import com.kenya.jug.arena.io.UserResponse;
+
+import java.util.List;
 
 public interface LeaderboardService {
-    LeaderboardsResponse getUser(String userId,String firstName);
+    LeaderboardsResponse getUser(String userId, String firstName);
     LeaderboardsResponse getRank(int rank);
     LeaderboardsResponse getPoints(int points);
 

@@ -32,55 +32,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class LeaderboardsResponse {
-    private String userId;
-    private String userName;
-    private int rank;
-    private int points;
-
-
-    public LeaderboardsResponse(String userId, String userName, int rank, int points) {
-        this.userId = userId;
-        this.userName = userName;
-        this.rank = rank;
-        this.points = points;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-   public static List<LeaderboardsResponse> leadersPoint = new ArrayList<>(Arrays.asList());
+//@Data
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@Builder
+public record LeaderboardsResponse(String userId,String userName,int rank,int points) {
+    public static List<LeaderboardsResponse> leadersPoint = new ArrayList<>(Arrays.asList());
 }
+
+
+

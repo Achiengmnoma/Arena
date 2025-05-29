@@ -23,7 +23,6 @@ package com.kenya.jug.arena.service;
  * SOFTWARE.
  */
 import com.kenya.jug.arena.io.LeaderboardsResponse;
-import com.kenya.jug.arena.model.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,21 +36,25 @@ public class LeaderboardServImpl implements LeaderboardService{
     public LeaderboardsResponse getUser(String userId, String firstName){
       return leadersPoint.stream().
                 filter(f->
-                    f.getUserName().equals(firstName) &&
-                            u->u.getUserId().equals(userId))
-              .collect(Collectors.toList());
+                    f.userName().equals(firstName) &&
+                            f.userId().equals(userId)).findFirst().orElse(null);
+              //.collect(Collectors.toList());
 
 
     }
 
    public LeaderboardsResponse getRank(int rank){
         return leadersPoint.stream()
-                .filter(r ->r.getRank().equals(rank).collect(Collectors.toList());
+                .filter(r ->r.rank() == rank)
+                .findFirst().orElse(null);
+                //collect(Collectors.toList()));
 
     }
-   public LeaderboardsResponse getPoints(int points){
-        return leadersPoint.stream().filter(p ->p.getPoints().equals(points))
-                .collect(Collectors.toList());
+    public LeaderboardsResponse getPoints(int points){
+        return leadersPoint.stream().filter(p ->p.points() == points)
+                .findFirst()
+                .orElse(null);
+                //.collect(Collectors.toList());
     }
 
 
