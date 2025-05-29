@@ -6,10 +6,10 @@
     <link rel="stylesheet" th:href="@{/css/main.css}" href="../static/css/main.css">
 </head>
 <body>
-<main class="h-screen p-1">
+<main class="h-screen p-1 flex gap-2">
     <aside class="w-3xs bg-gray-100 h-full rounded-xl p-1 flex flex-col gap-4">
         <!--Logo-->
-        <div class="text-2xl font-bold flex items-center gap-2">
+        <div class="text-2xl font-bold flex items-center gap-2 py-4">
             <div th:replace="/fragments/icons.html :: logo-svg"></div>
             <pre class="">Arena</pre>
         </div>
@@ -26,7 +26,8 @@
             </div>
 
             <!--Players-->
-            <div class="daisy-btn border-none w-full flex content-start px-3 gap-3">
+            <div class="daisy-btn border-none w-full flex content-start px-3 pl-0 gap-3">
+                <div class="h-4/6 bg-red-500/0 w-1.5"></div>
                 <div th:replace="/fragments/icons.html :: players-svg"></div>
                 <span class="w-full text-start">
                     Players
@@ -34,7 +35,8 @@
             </div>
 
             <!--ScoreKeeper-->
-            <div class="daisy-btn border-none w-full flex content-start px-3 gap-3">
+            <div class="daisy-btn border-none w-full flex content-start px-3 pl-0 gap-3">
+                <div class="h-4/6 bg-red-500/0 w-1.5"></div>
                 <div th:replace="/fragments/icons.html :: scorekeeper-svg"></div>
                 <span class="w-full text-start">
                     ScoreKeeper
@@ -42,7 +44,7 @@
             </div>
         </div>
 
-        <!--Logout-->
+        <!--Logout and help-->
         <div class="mt-auto mb-0 space-y-2 border-t border-t-gray-300 pt-16 pb-4">
             <div class="daisy-btn daisy-btn-sm border-none w-full flex content-start px-3 gap-3 font-normal">
                 <span class="w-full text-start">
@@ -57,8 +59,58 @@
             </div>
         </div>
     </aside>
-    <div class="">
+    <div class="w-full flex flex-col gap-2">
+        <div class="flex  bg-gray-100 rounded-xl w-full justify-between p-1 py-4">
+            <h1 class="text-3xl font-black ml-4">
+                <pre>Tournaments</pre>
+            </h1>
+            <button class="daisy-btn daisy-btn-outline daisy-btn-sm
+                border-3 border-purple-600 rounded-lg flex items-center gap-2"
+                    onclick="add_tournament_modal.showModal()"
+            >
+                <div th:replace="/fragments/icons :: add-tournament-svg"></div>
+                <span>
+                    Add Tournament
+                </span>
+            </button>
+        </div>
+        <div class="rounded-xl h-full bg-gray-100">
+
+        </div>
     </div>
 </main>
+
+<!-- add tournament modal -->
+<dialog id="add_tournament_modal" class="daisy-modal">
+  <div class="daisy-modal-box">
+    <form method="dialog">
+      <button class="daisy-btn daisy-btn-sm daisy-btn-circle daisy-btn-ghost
+      absolute right-2 top-2">
+          ✕
+      </button>
+    </form>
+    <h3 class="text-lg font-bold">Submit Tournament</h3>
+    <p class="py-2 text-xs">Press the ESC key or click on the ✕ button to close</p>
+      <div class="space-y-2">
+          <fieldset class="daisy-fieldset">
+              <legend class="daisy-fieldset-legend">Name</legend>
+              <input type="text" class="daisy-input w-full" placeholder="High Stakes Pool 🎱" >
+          </fieldset>
+          <fieldset class="daisy-fieldset">
+              <legend class="daisy-fieldset-legend">Score Keeper</legend>
+              <select class="daisy-select w-full">
+                  <option disabled selected>Pick a Score keeper</option>
+                  <option>Kamau</option>
+                  <option>Atieno</option>
+                  <option>Juma</option>
+              </select>
+          </fieldset>
+          <button class="daisy-btn border-none bg-gradient-to-bl from-blue-600 to-violet-600
+          text-white w-full mt-4"
+          >Submit for review</button>
+      </div>
+  </div>
+</dialog>
+
 </body>
 </html>
