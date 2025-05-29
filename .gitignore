@@ -66,3 +66,6 @@ buildNumber.properties
 # Ignore production properties
 application-prod.properties
 README.md.bak
+
+# front-end node modules
+/src/main/frontend/node_modules/
