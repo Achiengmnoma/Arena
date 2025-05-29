@@ -6,6 +6,40 @@
 
 Real-Time Multiplayer Game Server (with Betting Feature)
 
+### Local Development Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/MwauratheAlex/arena.git
+   cd arena
+   ```
+
+2. **Build the project**
+   ```bash
+   mvn clean install
+   ```
+
+3. **Run the application**
+   ```bash
+   mvn spring-boot:run
+   ```
+   The server will start on `http://localhost:8080`
+
+## If using intellij hot-reloading
+1. **Watch for tailwind changes on a separate terminal**
+   ```bash
+   cd arena/src/main/frontend
+   npm i #install node modules if running for the first time
+   npm run watch #to watch html files for changes and rebuild your css
+   ```
+2. **Run Normally on intellij**
+- Tailwind will build automatically on save, and you only need to rerun your server on changes.
+- If running templates directly with the intellij server and hot-reloading, 
+tailwind will still build automatically on save, and you will see changes immediately on your browser.
+- NOTE: mvn spring-boot:run will install packages and 
+build tailwind so there is no need to run watch separately.
+
+
 ---
 
 
